@@ -1,0 +1,12 @@
+
+{% extends 'client_dashboard/base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <h1>Welcome, {{ user.username }}!</h1>
+    <p>This is your dashboard. Here you can submit requests, track progress, and manage payments.</p>
+    <a href="{% url 'logout' %}" class="btn btn-logout">Logout</a>
+</div>
+{% endblock %}
