@@ -3,12 +3,6 @@
 {% block title %}Great Guardian Investment Ltd Management System{% endblock %}
 
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Great Guardian Investment Ltd Management System</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -22,34 +16,9 @@
             align-items: center;
             margin: 0;
         }
-        .login-container {
-            background-color: rgba(0, 0, 0, 0.6);
-            padding: 30px;
-            border-radius: 10px;
-            width: 400px;
-            text-align: center;
-        }
-        input[type="text"], input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #333;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #555;
-        }
+
     </style>
-</head>
+
 <body>
     <div class="login-container">
         <h2>Login</h2>
@@ -60,6 +29,5 @@
         </form>
         <p>Don't have an account? <a href="{% url 'register' %}" style="color: #fff;">Register here</a></p>
     </div>
-</body>
-</html>
+
 {% endblock %}
