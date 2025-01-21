@@ -3,7 +3,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from .forms import CustomUserCreationForm, CustomAuthenticationForm
-
+def homepage(request):
+    return render(request, 'client_dashboard/home.html')
 def register(request):
     if request.method == "POST":
         form = CustomUserCreationForm(request.POST)

@@ -100,31 +100,3 @@ button:hover {
 .btn:hover {
     background-color: #0056b3;
 }
-body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-}
-
-.container {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
-
-.banner {
-    background-image: url('Survey/static/images/background1.jpeg'); /* Replace with the actual image path */
-    background-size: cover;
-    background-position: center;
-    width: 100%;
-    height: 100%;
-}
-
-.banner .text-content {
-    color: white;
-    background-color: rgba(0, 0, 0, 0.5); /* Optional: Add background overlay */
-    padding: 20px;
-    border-radius: 5px;
-}
