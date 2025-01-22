@@ -4,44 +4,6 @@
 
 {% block content %}
 
-    <style>
- body {
-            font-family: Arial, sans-serif;
-            background-image: url('https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            text-align: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-            flex-direction: column;
-        }
-        .heading {
-            font-size: 3em;
-            margin-bottom: 20px;
-        }
-        .auth-links a {
-            display: inline-block;
-            background-color: #333;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            margin: 10px;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        .auth-links a:hover {
-            background-color: #555;
-        }
-    </style>
-
-<body>
     <div class="container">
         <h1 class="heading">Great Guardian Investment Ltd Management System</h1>
         <div class="auth-links">
@@ -49,6 +11,5 @@
             <a href="{% url 'register' %}">Register</a>
         </div>
     </div>
-</body>
 
 {% endblock %}
