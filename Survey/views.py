@@ -1,36 +1,26 @@
-
+from django.contrib import messages
+from django.db import models
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import login, logout, authenticate, get_user_model
 from django.contrib.auth.decorators import login_required
-from .forms import CustomUserCreationForm, CustomAuthenticationForm
+
+
+
 def homepage(request):
-    return render(request, 'client_dashboard/home.html')
-def register(request):
-    if request.method == "POST":
-        form = CustomUserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('dashboard')
-    else:
-        form = CustomUserCreationForm()
-    return render(request, 'client_dashboard/register.html', {'form': form})
+    return render(request, 'Admin/admin-dash.html')
 
-def login_view(request):
-    if request.method == "POST":
-        form = CustomAuthenticationForm(data=request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            return redirect('dashboard')
-    else:
-        form = CustomAuthenticationForm()
-    return render(request, 'client_dashboard/login.html', {'form': form})
 
-@login_required
-def dashboard(request):
-    return render(request, 'client_dashboard/dashboard.html')
+def Client_list(request):
+    return render(request,'Admin/Clients.html')
 
-def logout_view(request):
-    logout(request)
-    return redirect('login')
+
+def Survey_list(request):
+    return render(request,'Admin/surveyor.html')
+
+
+def Client_payments(request):
+    return render(request,'Admin/Payments.html')
+
+
+def Office_documents(request):
+    return render(request,'Admin/documents.html')

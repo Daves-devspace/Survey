@@ -1,0 +1,90 @@
+{% extends 'Admin/base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Survey</title>
+{% endblock %}
+
+
+{% block body %}
+
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            <div class="page-header">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h3 class="page-title">Survey List</h3>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Survey</li>
+                        </ul>
+                    </div>
+                    <div class="col-auto text-right float-right ml-auto">
+                        <a href="#" class="btn btn custom-bg text-white mr-2"><i class="fas fa-download"></i> Download
+                            List</a>
+                        <a href="#" class="btn btn custom-bg text-white"><i class="fas fa-plus mr-2 "></i>Add Client</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card card-table">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-center mb-0 datatable">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>User Name</th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Phone</th>
+                                        <th>Status</th>
+                                        <th>Joining Date</th>
+                                        <th>View Details</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                
+                                        <tr>
+                                            <td>1</td>
+                                            <td>survey1 </td>
+                                            <td> First </td>
+                                            <td> Last </td>
+                                            <td> 0700000000</td>
+                                            <td>Active</td>
+                                            <td>2024/3/3</td>
+                                            <td>Details</td>
+                                            <td><a href="#"
+                                                   Class="btn btn  btn-sm  custom-bg text-white">Issue</a></td>
+                                        </tr>
+
+                                   
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <p>Copyright © 2024 Davedev</p>
+        </footer>
+    </div>
+    </div>
+    <script src="{% static 'assets/js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'assets/js/popper.min.js' %}"></script>
+    <script src="{% static 'assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
+    <script src="{% static 'assets/plugins/datatables/datatables.min.js' %}"></script>
+    <script src="{% static 'assets/js/script.js' %}"></script>
+    </body>
+
+    </html>
+
+
+{% endblock %}

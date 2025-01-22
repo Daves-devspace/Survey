@@ -1,0 +1,272 @@
+{% extends 'Admin/base.html' %}
+{% load static %}
+
+
+{% block body %}
+
+
+
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            <div class="container-fluid">
+                {% for message in messages %}
+
+                    <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+                        <p>{{ message }}</p>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="page-sub-header">
+                            <h3 class="page-title">Welcome {{ user }}</h3>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                                <li class="breadcrumb-item active">{{ user }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-xl-3 col-sm-6 col-12 d-flex">
+                    <div class="card bg-comman w-100">
+                        <div class="card-body">
+                            <div class="db-widgets d-flex justify-content-between align-items-center">
+                                <div class="db-info ">
+                                    <h6>Students</h6>
+                                    <h3>{{ total_students }}</h3>
+                                </div>
+                                <div class="db-icon">
+                                    <img src="{% static 'assets/img/icons/dash-icon-01.svg' %}" alt="Dashboard Icon">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 col-12 d-flex">
+                    <div class="card bg-comman w-100">
+                        <div class="card-body">
+                            <div class="db-widgets d-flex justify-content-between align-items-center">
+                                <div class="db-info">
+                                    <h6>Teachers</h6>
+                                    <h3>{{ total_teachers }}</h3>
+                                </div>
+                                <div class="db-icon">
+                                    <img src="{% static 'assets/img/icons/dash-icon-02.svg' %}" alt="Dashboard Icon">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 col-12 d-flex">
+                    <div class="card bg-comman w-100">
+                        <div class="card-body">
+                            <div class="db-widgets d-flex justify-content-between align-items-center">
+                                <div class="db-info">
+                                    <h6>Department</h6>
+                                    <h3>{{ total_departments }}</h3>
+                                </div>
+                                <div class="db-icon">
+                                    <img src="{% static 'assets/img/icons/dash-icon-03.svg' %}" alt="Dashboard Icon">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 col-12 d-flex">
+                    <div class="card bg-comman w-100">
+                        <div class="card-body">
+                            <div class="db-widgets d-flex justify-content-between align-items-center">
+                                <div class="db-info">
+                                    <h6>Revenue</h6>
+                                    <h3>{{ total_revenue }}</h3>
+                                    <h6>{{ current_year }}</h6>
+                                </div>
+                                <div class="db-icon">
+                                    <img src="{% static 'assets/img/icons/dash-icon-04.svg' %}" alt="Dashboard Icon">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 col-lg-6">
+
+                    <div class="card card-chart">
+                        <div class="card-header">
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <h5 class="card-title">Finance Overview</h5>
+                                </div>
+                                <div class="col-6">
+                                    <ul class="chart-list-out">
+                                        <li><span class="circle-blue"></span>Fee Collection</li>
+                                        <li class="star-menus"><a href="javascript:;"><i
+                                                class="fas fa-ellipsis-v"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <div class="col-md-12 col-lg-6">
+
+                    <div class="card card-chart">
+                        <div class="card-header">
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <h5 class="card-title">Active Students</h5>
+                                </div>
+                                <div class="col-6">
+                                    <ul class="chart-list-out">
+                                        <li><span class="circle-green"></span>Girls</li>
+                                        <li><span class="custom-bg"></span>Boys</li>
+                                        <li class="star-menus"><a href="javascript:;"><i
+                                                class="fas fa-ellipsis-v"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-6 d-flex">
+
+                    <div class="card flex-fill student-space comman-shadow">
+                        <div class="card-header d-flex align-items-center">
+                            <h5 class="card-title">New Clients</h5>
+                            <ul class="chart-list-out student-ellips">
+                                <li class="star-menus"><a href="javascript:;"><i class="fas fa-ellipsis-v"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table star-student table-hover table-center table-borderless table-striped">
+                                    <thead class="thead-light">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th class="text-center">Process</th>
+                                        <th class="text-center">Status</th>
+                                        <th class="text-end">View</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+
+                                        <tr>
+                                            <td class="text-nowrap">
+                                                <div>{{ student.admission_number }}</div>
+                                            </td>
+                                            <td class="text-nowrap">
+                                                <a href="profile.html">
+                                                    <img class="rounded-circle"
+                                                         src="{% static 'assets/img/profiles/avatar-02.jpg' %}"
+                                                         width="25" alt="Star Students">
+                                                    {{ student.student_name }}
+                                                </a>
+                                            </td>
+                                            <td class="text-center">{{ student.total_marks }}</td>
+                                            <td class="text-center">{{ student.class }}</td>
+                                            <td class="text-end">
+                                                <div>{{ student.term }}</div>
+                                            </td>
+                                        </tr>
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <div class="row">
+                <div class="col-xl-3 col-sm-6 col-12">
+                    <div class="card flex-fill fb sm-box">
+                        <div class="social-likes">
+                            <p>Like us on facebook</p>
+                            <h6>50,095</h6>
+                        </div>
+                        <div class="social-boxs">
+                            <img src="{% static 'assets/img/icons/social-icon-01.svg' %}" alt="Social Icon">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 col-12">
+                    <div class="card flex-fill twitter sm-box">
+                        <div class="social-likes">
+                            <p>Follow us on twitter</p>
+                            <h6>48,596</h6>
+                        </div>
+                        <div class="social-boxs">
+                            <img src="{% static 'assets/img/icons/social-icon-02.svg' %}" alt="Social Icon">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 col-12">
+                    <div class="card flex-fill insta sm-box">
+                        <div class="social-likes">
+                            <p>Follow us on instagram</p>
+                            <h6>52,085</h6>
+                        </div>
+                        <div class="social-boxs">
+                            <img src="{% static 'assets/img/icons/social-icon-03.svg' %}" alt="Social Icon">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 col-12">
+                    <div class="card flex-fill linkedin sm-box">
+                        <div class="social-likes">
+                            <p>Follow us on linkedin</p>
+                            <h6>69,050</h6>
+                        </div>
+                        <div class="social-boxs">
+                            <img src="{% static 'assets/img/icons/social-icon-04.svg' %}" alt="Social Icon">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <p>Copyright © 2024</p>
+        </footer>
+    </div>
+    </div>
+
+
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- ApexCharts -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="{% static 'assets/plugins/apexchart/apexcharts.min.js' %}"></script>
+    <script src="{% static 'assets/plugins/apexchart/chart-data.js' %}"></script>
+
+
+
+    </html>
+{% endblock %}

@@ -127,4 +127,4 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'Survey.CustomUser'
-LOGIN_URL = '/login/'
+LOGIN_URL = 'home'

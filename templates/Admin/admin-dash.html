@@ -1,0 +1,181 @@
+{% extends 'Admin/base.html' %}
+{% load static %}
+
+
+{% block body %}
+
+
+
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            <div class="container-fluid">
+                {% for message in messages %}
+
+                    <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+                        <p>{{ message }}</p>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="page-sub-header">
+                            <h3 class="page-title">Welcome {{ user }}</h3>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                                <li class="breadcrumb-item active">{{ user }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-xl-3 col-sm-6 col-12 d-flex">
+                    <div class="card bg-comman w-100">
+                        <div class="card-body">
+                            <div class="db-widgets d-flex justify-content-between align-items-center">
+                                <div class="db-info ">
+                                    <h6>Clients</h6>
+                                    <h3>{{ total_students }}</h3>
+                                </div>
+                                <div class="db-icon">
+                                    <img src="{% static 'assets/img/icons/dash-icon-01.svg' %}" alt="Dashboard Icon">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 col-12 d-flex">
+                    <div class="card bg-comman w-100">
+                        <div class="card-body">
+                            <div class="db-widgets d-flex justify-content-between align-items-center">
+                                <div class="db-info">
+                                    <h6>Titledeeds</h6>
+                                    <h3>{{ total_teachers }}</h3>
+                                </div>
+                                <div class="db-icon">
+                                    <img src="{% static 'assets/img/icons/dash-icon-02.svg' %}" alt="Dashboard Icon">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 col-12 d-flex">
+                    <div class="card bg-comman w-100">
+                        <div class="card-body">
+                            <div class="db-widgets d-flex justify-content-between align-items-center">
+                                <div class="db-info">
+                                    <h6>Surveys</h6>
+                                    <h3>{{ total_departments }}</h3>
+                                </div>
+                                <div class="db-icon">
+                                    <img src="{% static 'assets/img/icons/dash-icon-03.svg' %}" alt="Dashboard Icon">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 col-12 d-flex">
+                    <div class="card bg-comman w-100">
+                        <div class="card-body">
+                            <div class="db-widgets d-flex justify-content-between align-items-center">
+                                <div class="db-info">
+                                    <h6>Revenue</h6>
+                                    <h3>{{ total_revenue }}</h3>
+                                    <h6>{{ current_year }}</h6>
+                                </div>
+                                <div class="db-icon">
+                                    <img src="{% static 'assets/img/icons/dash-icon-04.svg' %}" alt="Dashboard Icon">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        
+            <div class="row">
+                <div class="col-xl-6 d-flex">
+
+                    <div class="card flex-fill student-space comman-shadow">
+                        <div class="card-header d-flex align-items-center">
+                            <h5 class="card-title">New Clients</h5>
+                            <ul class="chart-list-out student-ellips">
+                                <li class="star-menus"><a href="javascript:;"><i class="fas fa-ellipsis-v"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table star-student table-hover table-center table-borderless table-striped">
+                                    <thead class="thead-light">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th class="text-center">Process</th>
+                                        <th class="text-center">Status</th>
+                                        <th class="text-end">View</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for student in top_students_data %}
+                                        <tr>
+                                            <td class="text-nowrap">
+                                                <div>{{ student.admission_number }}</div>
+                                            </td>
+                                            <td class="text-nowrap">
+                                                <a href="profile.html">
+                                                    <img class="rounded-circle"
+                                                         src="{% static 'assets/img/profiles/avatar-02.jpg' %}"
+                                                         width="25" alt="Star Students">
+                                                    {{ student.student_name }}
+                                                </a>
+                                            </td>
+                                            <td class="text-center">{{ student.total_marks }}</td>
+                                            <td class="text-center">{{ student.class }}</td>
+                                            <td class="text-end">
+                                                <div>{{ student.term }}</div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+             
+            
+            </div>
+
+          
+        
+        </div>
+        <footer>
+            <p>Copyright © 2024</p>
+        </footer>
+    </div>
+    </div>
+
+    
+
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- ApexCharts -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="{% static 'assets/plugins/apexchart/apexcharts.min.js' %}"></script>
+    <script src="{% static 'assets/plugins/apexchart/chart-data.js' %}"></script>
+
+
+
+    </html>
+{% endblock %}
