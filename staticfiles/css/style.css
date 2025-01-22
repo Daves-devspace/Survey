@@ -1,0 +1,276 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Container for Centering Content */
+.container {
+    width: 90%;
+    max-width: 600px;
+    text-align: center;
+}
+
+/* Heading Styles */
+.heading {
+    font-size: 3em;
+    margin-bottom: 20px;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Authentication Links (Home Page) */
+.auth-links a {
+    display: inline-block;
+    background-color: #333;
+    color: white;
+    padding: 12px 24px;
+    text-decoration: none;
+    margin: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.auth-links a:hover {
+    background-color: #555;
+    transform: translateY(-2px);
+}
+
+/* Form Containers (Login, Register) */
+.login-container,
+.register-container {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 30px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.login-container h2,
+.register-container h2 {
+    margin-bottom: 20px;
+    font-size: 2em;
+    color: #fff;
+}
+
+/* Form Input Fields */
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.9);
+    font-size: 1em;
+    color: #333;
+    transition: background-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus {
+    background-color: rgba(255, 255, 255, 1);
+    outline: none;
+}
+
+/* Form Buttons */
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+/* Links Inside Forms */
+.login-container p,
+.register-container p {
+    margin-top: 15px;
+    color: #fff;
+}
+
+.login-container a,
+.register-container a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.login-container a:hover,
+.register-container a:hover {
+    color: #0056b3;
+}
+/* Error Messages */
+.error-message {
+    color: #ff6b6b;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+/* Form Instructions */
+.form-text {
+    color: #ccc;
+    font-size: 0.8em;
+    margin-top: 5px;
+}
+
+/* Form Group Styling */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.form-group input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+/* Dashboard Styles */
+.dashboard {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+.dashboard h1 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.dashboard p {
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* Notifications */
+.notifications .alert {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.notifications .alert-info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+
+/* Applications List */
+.applications-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.applications-list li {
+    background-color: #f8f9fa;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.applications-list li a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.applications-list li a:hover {
+    text-decoration: underline;
+}
+
+/* Actions */
+.actions {
+    margin-top: 20px;
+}
+
+.actions .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-right: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+}
+
+.actions .btn-primary {
+    background-color: #007bff;
+}
+
+.actions .btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.actions .btn-logout {
+    background-color: #dc3545;
+}
+
+.actions .btn-logout:hover {
+    background-color: #c82333;
+}
+/* Responsive Design */
+@media (max-width: 768px) {
+    .heading {
+        font-size: 2.5em;
+    }
+
+    .login-container,
+    .register-container {
+        padding: 20px;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="email"] {
+        padding: 10px;
+    }
+
+    button {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .heading {
+        font-size: 2em;
+    }
+
+    .auth-links a {
+        padding: 10px 15px;
+    }
+}
