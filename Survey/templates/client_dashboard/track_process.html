@@ -1,0 +1,7 @@
+{% extends 'client_dashboard/base.html' %}
+{% block content %}
+    <h2>Track Process</h2>
+    <p>Application: {{ application.request_type }}</p>
+    <p>Status: {{ application.status }}</p>
+    <p>Last Updated: {{ application.updated_at }}</p>
+{% endblock %}
