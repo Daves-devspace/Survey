@@ -1,29 +1,33 @@
 from django.shortcuts import render
 
+from Survey.models import Client, Surveyor
+
 
 def dashboard(request):
     return render(request, 'admin-dash.html')
 
 
 def surveyors(request):
-    return None
+    surveyors = Surveyor.objects.all()
+    return render(request, 'surveyors.html',{'surveyors': surveyors})
 
 
 def clients(request):
-    return None
+    clients = Client.objects.all()
+    return render(request,'clients.html',{'clients': clients})
 
 
 def payments(request):
-    return None
+    return render(request, 'payments.html')
 
 
 def registered_surveyor(request):
-    return None
+    return render(request,'registered_surveyor.html')
 
 
 def messages(request):
-    return None
+    return render(request,'messages.html')
 
 
 def new_payment(request):
-    return None
+    return render(request, 'new_payment.html')
