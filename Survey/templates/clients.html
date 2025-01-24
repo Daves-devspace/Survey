@@ -53,12 +53,10 @@
                             <td>{{ client.firstname }}</td>
                             <td>{{ client.lastname }}</td>
                             <td>{{ client.email }}</td>
+                            <td>{{ client.status }}</td>
                             <td>{{ client.phone }}</td>
                             <td>{{ client.join_date }}</td>
-                            <td>{{ client.action }}</td>
-                            <td>
-                                <a href="#" class="btn btn-outline-dark btn-sm">View Details</a>
-                            </td>
+                            <td>{{ client.action }}<a href="{% url 'client_view_details' client.id %}" class="btn btn-outline-dark btn-sm">View Details</a></td>
                         </tr>
                     {% endfor %}
                     </tbody>

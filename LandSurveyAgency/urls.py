@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 from Survey import views
+from Survey.views import client_view_details
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,5 +29,9 @@ path('payments', views.payments, name='payments'),
 path('new_payment', views.new_payment, name='new_payment'),
 path('registered_surveyor', views.registered_surveyor, name='register_surveyor'),
 path('messages', views.messages, name='messages'),
+
+path('clients/client_details<int:object_id>', views.client_view_details, name='client_view_details'),
+
+
 ]
 

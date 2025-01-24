@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.urls import reverse
 from django.utils.html import format_html
 from .models import Client, Surveyor, Transaction, Payment
 
@@ -8,14 +9,19 @@ admin.site.site_title = 'Manage GIL'
 
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):
-    list_display = ('username', 'firstname', 'lastname', 'email', 'phone', 'status', 'action', 'view_details_button')
+    list_display = ('username', 'firstname', 'lastname', 'email', 'phone','status',  'view_details_button')
     search_fields = ('username', 'firstname', 'lastname', 'email', 'phone')
-    list_filter = ('status',)
+    list_filter = ('username',)
     list_per_page = 30
 
     def view_details_button(self, obj):
-        return format_html('<a href="/admin/Surveyor/client/{}/change/" class="button">View Details</a>', obj.id)
-    view_details_button.short_description = 'View Details'
+        # Use the correct namespace and URL name, and pass the object's ID
+        url = reverse('clients:client_view_details', args=[obj.id])
+        return format_html(
+            '<a href="{}" class="btn btn-outline-dark btn-sm">View Details</a>',
+            url)
+
+    view_details_button.short_description = 'Action'
     view_details_button.allow_tags = True
 
 @admin.register(Surveyor)

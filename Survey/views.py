@@ -16,6 +16,12 @@ def clients(request):
     clients = Client.objects.all()
     return render(request,'clients.html',{'clients': clients})
 
+from django.shortcuts import get_object_or_404, render
+from .models import Client
+
+def client_view_details(request, object_id):
+    client = get_object_or_404(Client, id=object_id)
+    return render(request, 'client_view_details.html', {'client': client})
 
 def payments(request):
     return render(request, 'payments.html')

@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils import timezone
 # Create your models here.
 class Client(models.Model):
     username = models.CharField(max_length=100,unique=True)
@@ -7,8 +7,9 @@ class Client(models.Model):
     lastname = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
     phone = models.CharField(max_length=15, unique=True)
-    action = models.CharField(max_length=200, default="view details")  # Action for the client
+    action = models.CharField(max_length=200)
     status = models.CharField(max_length=200, default="waiting for approval")
+    join_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return f"{self.firstname} {self.lastname}"
@@ -25,7 +26,8 @@ class Surveyor(models.Model):
     lastname = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
     phone = models.CharField(max_length=15, unique=True)
-    status = models.CharField(max_length=200, default="active")  # Surveyor status is always active
+    status = models.CharField(max_length=200, default="active")
+    join_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return self.username
