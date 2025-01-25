@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'LandSurveyAgency.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'survey_db',
+        'NAME': 'great_investment',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',

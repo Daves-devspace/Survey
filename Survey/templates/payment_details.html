@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Payment Details{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h1 class="card-title">Payment Details</h1>
+    </div>
+    <div class="card-body">
+        <p><strong>Client Name:</strong> {{ payment.client_name }}</p>
+        <p><strong>Phone Number:</strong> {{ payment.phone_number }}</p>
+        <p><strong>Amount:</strong> {{ payment.amount }}</p>
+        <p><strong>Transaction Date:</strong> {{ payment.transaction_date }}</p>
+        <p><strong>Status:</strong> {{ payment.status }}</p>
+    </div>
+</div>
+{% endblock %}

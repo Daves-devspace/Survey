@@ -56,7 +56,7 @@
                             <td>{{ client.status }}</td>
                             <td>{{ client.phone }}</td>
                             <td>{{ client.join_date }}</td>
-                            <td>{{ client.action }}<a href="{% url 'client_view_details' client.id %}" class="btn btn-outline-dark btn-sm">View Details</a></td>
+                            <td>{{ client.action|safe }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>

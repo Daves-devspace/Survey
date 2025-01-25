@@ -12,12 +12,12 @@
 {% block content %}
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Surveyors</h1>
-    <p class="mb-4">Surveyors List</p>
+
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">You can issue the books</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Surveyors List</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -28,10 +28,10 @@
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Email</th>
-                        <th>Status</th>
                         <th>Phone Number</th>
+                        <th>Status</th>
                         <th>Join Date</th>
-                        <th>Action</th>
+                        <th>View Details</th>
                     </tr>
                     </thead>
                     <tfoot>
@@ -40,25 +40,23 @@
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Email</th>
-                        <th>Status</th>
                         <th>Phone Number</th>
+                        <th>Status</th>
                         <th>Join Date</th>
-                        <th>Action</th>
+                        <th>View Details</th>
                     </tr>
                     </tfoot>
                     <tbody>
-                    {% for client in clients %}
+                    {% for surveyor in surveyors %}
                         <tr>
-                            <td>{{ client.username}}</td>
-                            <td>{{ client.firstname }}</td>
-                            <td>{{ client.lastname }}</td>
-                            <td>{{ client.email }}</td>
-                            <td>{{ client.phone }}</td>
-                            <td>{{ client.join_date }}</td>
-                            <td>{{ client.action }}</td>
-                            <td>
-                                <a href="#" class="btn btn-outline-dark btn-sm">View Details</a>
-                            </td>
+                            <td>{{ surveyor.username}}</td>
+                            <td>{{ surveyor.firstname }}</td>
+                            <td>{{ surveyor.lastname }}</td>
+                            <td>{{ surveyor.email }}</td>
+                            <td>{{ surveyor.phone }}</td>
+                            <td>{{ surveyor.status }}</td>
+                            <td>{{ surveyor.join_date }}</td>
+                            <td>{{ surveyor.action|safe  }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>

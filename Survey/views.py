@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from Survey.models import Client, Surveyor
+from Survey.models import Client, Surveyor, Payment
 
 
 def dashboard(request):
@@ -24,7 +24,11 @@ def client_view_details(request, object_id):
     return render(request, 'client_view_details.html', {'client': client})
 
 def payments(request):
-    return render(request, 'payments.html')
+    payments = Payment.objects.all()
+    context = {
+        'payments': payments,
+    }
+    return render(request, 'payments.html', context)
 
 
 def registered_surveyor(request):
@@ -37,3 +41,15 @@ def messages(request):
 
 def new_payment(request):
     return render(request, 'new_payment.html')
+
+
+def surveyor_view_details(request, object_id):
+    surveyor= get_object_or_404(Surveyor, id=object_id)
+    return render(request, 'surveyor_view_details.html', {'surveyor': surveyor})
+
+def payment_details(request, object_id):
+    payment = get_object_or_404(Payment, id=object_id)
+    context = {
+        'payment': payment,
+    }
+    return render(request, 'payment_details.html', context)
