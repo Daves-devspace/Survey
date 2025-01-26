@@ -11,18 +11,20 @@ admin.site.site_title = 'Manage GIL'
 
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):
-    list_display = ('username', 'firstname', 'lastname', 'email', 'phone','status', 'action_button')
+    list_display = ('username', 'firstname', 'lastname', 'email', 'phone', 'service', 'process')
     search_fields = ('username', 'firstname', 'lastname', 'email', 'phone')
     list_filter = ('username',)
     list_per_page = 30
 
-    def action_button(self, obj):
-        return format_html(
-            '<a href="{}" class="btn btn-outline-dark btn-sm">View Details</a>',
-            reverse('client_view_details', args=[obj.id])
-        )
-    action_button.short_description = 'Action'
-    action_button.allow_tags = True
+
+
+    # def action_button(self, obj):
+    #     return format_html(
+    #         '<a href="{}" class="btn btn-outline-dark btn-sm">View Details</a>',
+    #         reverse('client_view_details', args=[obj.id])
+    #     )
+    # action_button.short_description = 'Action'
+    # action_button.allow_tags = True
 
 
 @admin.register(Surveyor)

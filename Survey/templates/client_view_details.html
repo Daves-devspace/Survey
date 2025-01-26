@@ -1,11 +1,153 @@
-{% extends "base.html" %}
-{% block content %}
-<h1>Client Details</h1>
-<p><strong>Username:</strong> {{ client.username }}</p>
-<p><strong>First Name:</strong> {{ client.firstname }}</p>
-<p><strong>Last Name:</strong> {{ client.lastname }}</p>
-<p><strong>Email:</strong> {{ client.email }}</p>
-<p><strong>Phone:</strong> {{ client.phone }}</p>
-<p><strong>Status:</strong> {{ client.status }}</p>
-<p><strong>Join Date:</strong> {{ client.join_date }}</p>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Clients List</title>
 {% endblock %}
+{% block extra_css %}
+    <!-- Custom styles for this page -->
+    <link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Clients</h1>
+
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Details</h6>
+        </div>
+        <div class="card-body">
+            <div class="accordion" id="clientAccordion">
+                <!-- Personal Information Section -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Personal Information
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                         data-bs-parent="#clientAccordion">
+                        <div class="accordion-body">
+                            <p><strong>Username:</strong> {{ client.username }}</p>
+                            <p><strong>First Name:</strong> {{ client.firstname }}</p>
+                            <p><strong>Last Name:</strong> {{ client.lastname }}</p>
+                            <p><strong>Email:</strong> {{ client.email }}</p>
+                            <p><strong>Phone:</strong> {{ client.phone }}</p>
+                            <p><strong>Join Date:</strong> {{ client.join_date }}</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                {#                #service details#}
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Service Details
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                         data-bs-parent="#clientAccordion">
+                        <div class="accordion-body">
+                            <p><strong>Service Type:</strong> {{ client.service.name }}</p>
+                            <p><strong>Current Process:</strong>
+                                {{ client.process.process if client.process else "Not Set" }}</p>
+
+                            <!-- Dropdown to Change Process -->
+                            <form method="post" id="processForm">
+                                {% csrf_token %}
+                                <label for="processDropdown" class="form-label">Change Process:</label>
+                                <select class="form-select mb-3" name="process" id="processDropdown">
+                                    {% for process in processes %}
+                                        <option value="{{ process.id }}"
+                                                {% if client.process and client.process.id == process.id %}selected{% endif %}>
+                                            {{ process.process }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                                <button type="submit" class="btn btn-primary">Update Process</button>
+                            </form>
+
+                            <!-- Success Message -->
+                            <div id="successMessage" class="alert alert-success mt-3" style="display: none;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    </div>
+
+
+
+{% endblock %}
+
+{% block extra_js %}
+
+    <!-- AJAX for Form Submission -->
+    <script>
+        const form = document.getElementById('processForm');
+        const successMessage = document.getElementById('successMessage');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+            fetch('', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    successMessage.textContent = data.message;
+                    successMessage.style.display = 'block';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+    <!-- Page level plugins -->
+    <script src="{% static 'vendor/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{% static 'js/demo/datatables-demo.js' %}"></script>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{#{% extends "base.html" %}#}
+{#{% block content %}#}
+{#<h1>Client Details</h1>#}
+{#<p><strong>Username:</strong> {{ client.username }}</p>#}
+{#<p><strong>First Name:</strong> {{ client.firstname }}</p>#}
+{#<p><strong>Last Name:</strong> {{ client.lastname }}</p>#}
+{#<p><strong>Email:</strong> {{ client.email }}</p>#}
+{#<p><strong>Phone:</strong> {{ client.phone }}</p>#}
+{#<p><strong>Status:</strong> {{ client.status }}</p>#}
+{#<p><strong>Join Date:</strong> {{ client.join_date }}</p>#}
+{#{% endblock %}#}

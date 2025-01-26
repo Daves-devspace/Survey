@@ -1,5 +1,9 @@
+from http.client import responses
+
 from django.contrib.auth.decorators import login_required
-from Survey.models import Client, Surveyor, Payment
+from django.http import JsonResponse
+
+from Survey.models import Client, Surveyor, Payment, TitleProcess, send_mobile_sasa_message
 from django.shortcuts import get_object_or_404, render
 
 
@@ -21,7 +25,23 @@ def clients(request):
 
 def client_view_details(request, object_id):
     client = get_object_or_404(Client, id=object_id)
-    return render(request, 'client_view_details.html', {'client': client})
+    processes = TitleProcess.objects.filter(type=client.service)
+
+    if request.method == 'POST':
+        new_process_id = request.Post.get("process")
+        if new_process_id:
+            new_process = TitleProcess.objects.get(id=new_process_id)
+            client.process = new_process
+            client.save()
+
+            #get custom message
+            custom_message = new_process.message
+            send_mobile_sasa_message(client.phone,custom_message)
+
+            return JsonResponse({"success":True,"message":f"Process update:{custom_message}"})
+    return render(request, 'client_view_details.html', {'client': client,"processes":processes})
+
+
 
 def payments(request):
     payments = Payment.objects.all()
