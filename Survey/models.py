@@ -1,103 +1,100 @@
-# =
-#
-#
 from django.db import models
-#
-# from django.contrib.auth import get_user_model
-#
-from django.contrib.auth.models import AbstractUser
-#
-#
-class CustomUser(AbstractUser):
-    is_client = models.BooleanField(default=True)
+from django.urls import reverse
+from django.utils.safestring import mark_safe
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
-
-
-# class Application(models.Model):
-#     REQUEST_TYPES = [
-#         ('title_deed', 'Title Deed Processing'),
-#         ('subdivision', 'Subdivision Request'),
-#         ('other', 'Other'),
-#     ]
-#     STATUS_CHOICES = [
-#         ('pending', 'Pending'),
-#         ('in_progress', 'In Progress'),
-#         ('completed', 'Completed'),
-#         ('rejected', 'Rejected'),
-#     ]
-#
-#     client = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='applications')
-#     request_type = models.CharField(max_length=50, choices=REQUEST_TYPES)
-#     description = models.TextField()
-#     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     updated_at = models.DateTimeField(auto_now=True)
-#
-#     def __str__(self):
-#         return f"{self.client.username} - {self.request_type}"
-#
-#
-# class AuditLog(models.Model):
-#     ACTION_CHOICES = [
-#         ('application_submitted', 'Application Submitted'),
-#         ('document_uploaded', 'Document Uploaded'),
-#         ('payment_made', 'Payment Made'),
-#         ('status_updated', 'Status Updated'),
-#         ('other', 'Other'),
-#     ]
-#
-#     user = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, blank=True)
-#     action = models.CharField(max_length=50, choices=ACTION_CHOICES)
-#     details = models.TextField()
-#     timestamp = models.DateTimeField(auto_now_add=True)
-#
-#     def __str__(self):
-#         return f"{self.user.username if self.user else 'System'} - {self.action} at {self.timestamp}"
-# CustomUser = get_user_model()
-#
-
-#
-#
-
-class Document(models.Model):
-    type= models.CharField(max_length=50)
-    name = models.CharField(max_length=50)
-    file = models.FileField(upload_to='documents/')
-    uploaded_at = models.DateTimeField(auto_now_add=True)
-
-
-#title deed proceess and status /each process has different status
-class Process(models.Model):
-    name = models.CharField(max_length=50)
-
-class Status(models.Model):
-    status_process = models.ForeignKey('Process',on_delete=models.CASCADE ,related_name='process')
-    name = models.CharField(max_length=50)
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
-
-
-#every status is paid separately
-class Payment(models.Model):
-    reference = models.ForeignKey('Status', on_delete=models.CASCADE, related_name='payments')
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
-    payment_method = models.CharField(max_length=50)
-    transaction_id = models.CharField(max_length=100)
-    paid_at = models.DateTimeField(auto_now_add=True)
+from django.utils import timezone
+# Create your models here.
+class Client(models.Model):
+    username = models.CharField(max_length=100, unique=True)
+    firstname = models.CharField(max_length=100)
+    lastname = models.CharField(max_length=100)
+    email = models.EmailField(unique=True)
+    phone = models.CharField(max_length=15, unique=True)
+    action = models.CharField(max_length=200, blank=True)  # Allow blank for default value
+    status = models.CharField(max_length=200, default="waiting for approval")
+    join_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return f"Payment of {self.amount} for {self.reference}"
+        return f"{self.firstname} {self.lastname}"
+
+    class Meta:
+        verbose_name = 'Client'
+        verbose_name_plural = 'Clients'
+        ordering = ['username']
+        db_table = 'clients'
+
+# Signal to set the default action button
+@receiver(post_save, sender=Client)
+def set_default_action(sender, instance, created, **kwargs):
+    if created and not instance.action:  # Set default value only for new instances
+        instance.action = mark_safe(
+            f'<a href="{reverse("client_view_details", args=[instance.id])}" class="btn btn-outline-dark btn-sm">View Details</a>'
+        )
+        instance.save()
 
 
-#client can have different land under processes i.e Transfer and Subdivision
-class Client(models.Model):
-    user_name = models.CharField(max_length=50)
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    Email =  models.EmailField(blank=True, null=True,unique=True)
-    Phone =  models.CharField(max_length=50,unique=True)
-    process = models.ManyToManyField('Process',related_name='process')
+class Surveyor(models.Model):
+    username = models.CharField(max_length=100, unique=True)
+    firstname = models.CharField(max_length=100)
+    lastname = models.CharField(max_length=100)
+    email = models.EmailField(unique=True)
+    phone = models.CharField(max_length=15, unique=True)
+    action = models.CharField(max_length=200, blank=True)  # Allow blank for default value
+    status = models.CharField(max_length=200, default="inactive")  # Default status is "inactive"
+    join_date = models.DateTimeField(default=timezone.now)
+    is_registered = models.BooleanField(default=False)  # Track if the surveyor is registered
+    is_serving = models.BooleanField(default=False)  # Track if the surveyor is serving in the company
 
-#Reciept after every paments
-class Reciept(models.Model):
-    client = models.ManyToManyField('Client',related_name='receipts').......
+    def __str__(self):
+        return f"{self.firstname} {self.lastname}"
 
+    class Meta:
+        verbose_name = 'Surveyor'
+        verbose_name_plural = 'Surveyors'
+        ordering = ['username']
+        db_table = 'surveyors'
+# Signal to set the default action button and status
+@receiver(post_save, sender=Surveyor)
+def set_default_action_and_status(sender, instance, created, **kwargs):
+    if created:  # Only for new instances
+        # Set the status based on registration and serving status
+        if instance.is_registered and instance.is_serving:
+            instance.status = "active"
+        else:
+            instance.status = "inactive"
+
+        # Set the default action button
+        instance.action = mark_safe(
+            f'<a href="{reverse("surveyor_view_details", args=[instance.id])}" class="btn btn-outline-dark btn-sm">View Details</a>'
+        )
+
+        # Save the instance to update the fields
+        instance.save()
+
+class Payment(models.Model):
+    client_name = models.CharField(max_length=100)
+    phone_number = models.CharField(max_length=15, blank=True, null=True)
+    amount = models.IntegerField()
+    transaction_date = models.DateTimeField(default=timezone.now)
+    status = models.CharField(max_length=200, default="waiting for approval")
+    action = models.CharField(max_length=200, blank=True)  # Allow blank for default value
+
+    def __str__(self):
+        return self.client_name
+
+    class Meta:
+        verbose_name = 'Payment'
+        verbose_name_plural = 'Payments'
+        ordering = ['client_name']
+        db_table = 'payments'
+
+# Signal to set the default action button
+@receiver(post_save, sender=Payment)
+def set_default_action(sender, instance, created, **kwargs):
+    if created:  # Only for new instances
+        instance.action = mark_safe(
+            f'<a href="{reverse("payment_details", args=[instance.id])}" class="btn btn-outline-dark btn-sm">Check Status</a>'
+        )
+        instance.save()

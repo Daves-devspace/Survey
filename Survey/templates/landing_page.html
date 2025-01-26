@@ -1,0 +1,33 @@
+<!-- templates/landing_page.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Great Guardian Investment Ltd</title>
+{% endblock %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% endblock %}
+
+{% block content %}
+    <!-- Hero Section -->
+    <div class="hero-section" style="background-color: #F4F6F9; padding: 50px; text-align: center;">
+        <h1 style="font-size: 2.5rem; color: #333;">Delivering clear, reliable selections for</h1>
+        <h2 style="font-size: 3rem; color: #007BFF; margin-top: 10px;">Great Guardian Investment Ltd</h2>
+        <p style="font-size: 1.2rem; color: #666; margin-top: 20px;">at accessible rates.</p>
+        <p style="font-size: 1rem; color: #888; margin-top: 20px;">
+            Our proven methods are designed to simplify, accelerate, and support your property needs.
+        </p>
+        <div style="margin-top: 30px;">
+            <a href="#" class="btn btn-primary" style="padding: 10px 20px; font-size: 1rem; margin-right: 10px;">Login</a>
+            <a href="#" class="btn btn-secondary" style="padding: 10px 20px; font-size: 1rem;">Register</a>
+        </div>
+    </div>
+
+    <!-- Dashboard Link -->
+    <div style="text-align: center; margin-top: 50px;">
+        <a href="{% url 'dashboard' %}" style="font-size: 1.2rem; color: #007BFF; text-decoration: none;">
+            Dashboard <i class="fas fa-arrow-right"></i>
+        </a>
+    </div>
+{% endblock %}
