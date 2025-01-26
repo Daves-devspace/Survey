@@ -1,6 +1,7 @@
-from django.shortcuts import render
-
+from django.contrib.auth.decorators import login_required
 from Survey.models import Client, Surveyor, Payment
+from django.shortcuts import get_object_or_404, render
+
 
 
 def dashboard(request):
@@ -16,8 +17,7 @@ def clients(request):
     clients = Client.objects.all()
     return render(request,'clients.html',{'clients': clients})
 
-from django.shortcuts import get_object_or_404, render
-from .models import Client
+
 
 def client_view_details(request, object_id):
     client = get_object_or_404(Client, id=object_id)

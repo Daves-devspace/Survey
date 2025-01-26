@@ -21,7 +21,9 @@ from Survey import views
 from Survey.views import client_view_details
 
 urlpatterns = [
+
     path('admin/', admin.site.urls),
+
 path('', views.dashboard, name='dashboard'),
 path('surveyors', views.surveyors, name='surveyors'),
 path('clients', views.clients, name='clients'),
