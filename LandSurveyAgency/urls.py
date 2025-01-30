@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 from Survey import views
-from Survey.views import client_view_details
+from Survey.views import client_view_details, client_dashboard
 
 urlpatterns = [
 
@@ -36,6 +36,6 @@ path('surveyors/surveyor_details<int:object_id>', views.surveyor_view_details, n
 path('clients/client_details<int:object_id>', views.client_view_details, name='client_view_details'),
     path('payments/payment_details/<int:object_id>/', views.payment_details, name='payment_details'),
 
-
+path("client-dashboard/", client_dashboard, name="client_dashboard"),
 ]
 

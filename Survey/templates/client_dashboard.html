@@ -1,0 +1,92 @@
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
+            <div class="position-sticky">
+                <h4 class="text-white p-3">Easy Manage</h4>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'client_dashboard' %}">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#">Clients</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="col-md-10 ms-sm-auto px-md-4">
+            <h2 class="mt-4">Welcome, {{ client.firstname }}!</h2>
+
+            <div class="accordion mt-3" id="mainAccordion">
+                <!-- Personal Information -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#personalInfo">
+                            Personal Information
+                        </button>
+                    </h2>
+                    <div id="personalInfo" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            <p><strong>First Name:</strong> {{ client.firstname }}</p>
+                            <p><strong>Last Name:</strong> {{ client.lastname }}</p>
+                            <p><strong>Email:</strong> {{ client.email }}</p>
+                            <p><strong>Phone:</strong> {{ client.phone }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Title Documents -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#titleDocuments" aria-expanded="true">
+                            Title Documents
+                        </button>
+                    </h2>
+                    <div id="titleDocuments" class="accordion-collapse collapse show">
+                        <div class="accordion-body">
+                            <form method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    {{ form|crispy }}
+                                </div>
+                                <button type="submit" class="btn btn-primary">Update Details</button>
+                            </form>
+
+                            <h5 class="mt-4">Uploaded Documents:</h5>
+                            <ul>
+                                {% for doc in documents %}
+                                    <li>
+                                        <a href="{{ doc.pdf_file.url }}" target="_blank">{{ doc.pdf_file.name }}</a>
+                                        ({{ doc.get_status_display }})
+                                    </li>
+                                {% empty %}
+                                    <li>No documents uploaded yet.</li>
+                                {% endfor %}
+                            </ul>
+
+                            <a href="{% url 'upload_title_document' %}" class="btn btn-success mt-3">Upload New Document</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
