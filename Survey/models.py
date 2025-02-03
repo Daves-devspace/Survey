@@ -9,6 +9,7 @@ from django.utils import timezone
 MOBILE_SASA_API_URL = "https://api.mobilesasa.com/v1/send-message"
 MOBILE_SASA_API_KEY = "api_key_here"
 
+
 # Title Transfer Types
 class TitleTransferTypes(models.Model):
     name = models.CharField(max_length=100)
@@ -39,16 +40,31 @@ class TitleProcess(models.Model):
     def __str__(self):
         return f"{self.type.name if self.type else 'No Type'} - {self.process}"
 
+
 # Client Model
 class Client(models.Model):
+    SERVICE_CHOICES = [
+        ("land_survey", "Land Survey"),
+        ("title_search", "Title Search"),
+        ("land_transfer", "Land Transfer"),
+        ("subdivision", "Subdivision"),
+    ]
+
+    PROCESS_CHOICES = [
+        ("initial_submission", "Initial Submission"),
+        ("registry_processing", "Registry Processing"),
+        ("approval_verification", "Approval & Verification"),
+        ("ready_for_collection", "Title Ready for Collection"),
+    ]
+
     username = models.CharField(max_length=100, unique=True)
     firstname = models.CharField(max_length=100)
     lastname = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
     phone = models.CharField(max_length=15, unique=True)
-    service = models.ForeignKey(TitleTransferTypes, on_delete=models.CASCADE)
-    process = models.ForeignKey(TitleProcess, on_delete=models.SET_NULL, null=True, blank=True)
     join_date = models.DateTimeField(default=timezone.now)
+    service = models.CharField(max_length=50, choices=SERVICE_CHOICES, default='land_survey')
+    process = models.CharField(max_length=50, choices=PROCESS_CHOICES, default='initial_submission')
 
     def __str__(self):
         return f"{self.firstname} {self.lastname}"
@@ -146,7 +162,6 @@ def set_default_action(sender, instance, created, **kwargs):
         )
         instance.save()
 
-# ✅ New: Title Document Model for Clients
 STATUS_CHOICES = [
     ("registry_processing", "Registry Processing"),
     ("approval_verification", "Approval and Verification"),

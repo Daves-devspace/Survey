@@ -54,9 +54,14 @@
                     <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
                          data-bs-parent="#clientAccordion">
                         <div class="accordion-body">
-                            <p><strong>Service Type:</strong> {{ client.service.name }}</p>
-                            <p><strong>Current Process:</strong>
-                                {{ client.process.process if client.process else "Not Set" }}</p>
+                                <p><strong>Service Type:</strong> {{ client.service.name }}</p><p><strong>Current Process:</strong>
+                            {% if client.process %}
+                                {{ client.process.process }}
+                            {% else %}
+                                Not Set
+                            {% endif %}
+                        </p>
+
 
                             <!-- Dropdown to Change Process -->
                             <form method="post" id="processForm">
@@ -80,9 +85,6 @@
                 </div>
             </div>
         </div>
-
-
-    </div>
     </div>
 
 

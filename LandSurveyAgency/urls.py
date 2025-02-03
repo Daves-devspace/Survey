@@ -22,7 +22,7 @@ from Survey.views import client_view_details, client_dashboard
 
 urlpatterns = [
 
-    path('admin/', admin.site.urls),
+path('admin/', admin.site.urls),
 
 path('', views.dashboard, name='dashboard'),
 path('surveyors', views.surveyors, name='surveyors'),
@@ -34,7 +34,7 @@ path('messages', views.messages, name='messages'),
 path('surveyors/surveyor_details<int:object_id>', views.surveyor_view_details, name='surveyor_view_details'),
 
 path('clients/client_details<int:object_id>', views.client_view_details, name='client_view_details'),
-    path('payments/payment_details/<int:object_id>/', views.payment_details, name='payment_details'),
+path('payments/payment_details/<int:object_id>/', views.payment_details, name='payment_details'),
 
 path("client-dashboard/", client_dashboard, name="client_dashboard"),
 ]
