@@ -38,7 +38,7 @@ def client_view_details(request, object_id):
     return render(request, 'client_view_details.html', {'client': client, "processes": processes, "documents": documents})
 
 # ✅ New: View for uploading title deed documents
-@login_required
+
 def upload_title_document(request):
     if request.method == "POST":
         form = TitleDocumentForm(request.POST, request.FILES)
@@ -69,19 +69,27 @@ def surveyor_view_details(request, object_id):
 def payment_details(request, object_id):
     payment = get_object_or_404(Payment, id=object_id)
     return render(request, 'payment_details.html', {'payment': payment})
-@login_required
+
+
+
 def client_dashboard(request):
+    # Fetch the logged-in client
     client = get_object_or_404(Client, username=request.user.username)
+
+    # Initialize the form with the client instance
     form = ClientForm(instance=client)
 
+    # Handle form submission
     if request.method == 'POST':
         form = ClientForm(request.POST, instance=client)
         if form.is_valid():
             form.save()
-            return redirect('client_dashboard')
+            return redirect('client_dashboard')  # Redirect to the same page after saving
 
-    documents = []  # Add your logic to fetch uploaded documents
+    # Fetch uploaded documents for the client
+    documents = TitleDocument.objects.filter(client=client)  # Adjust this query based on your model relationships
 
+    # Render the template with the client, form, and documents
     return render(request, 'client_dashboard.html', {
         'client': client,
         'form': form,
