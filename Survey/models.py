@@ -63,8 +63,10 @@ class Client(models.Model):
     email = models.EmailField(unique=True)
     phone = models.CharField(max_length=15, unique=True)
     join_date = models.DateTimeField(default=timezone.now)
-    service = models.CharField(max_length=50, choices=SERVICE_CHOICES, default='land_survey')
-    process = models.CharField(max_length=50, choices=PROCESS_CHOICES, default='initial_submission')
+    service = models.CharField(max_length=50, choices=SERVICE_CHOICES, default='land_survey', db_column="service_id")
+    process = models.CharField(max_length=50, choices=PROCESS_CHOICES, default='initial_submission', db_column="process_id")
+
+
 
     def __str__(self):
         return f"{self.firstname} {self.lastname}"
